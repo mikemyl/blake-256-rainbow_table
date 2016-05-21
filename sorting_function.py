@@ -1,5 +1,6 @@
 """Sorting Hex Values."""
 import csv
+import operator
 
 
 def main():
@@ -8,10 +9,8 @@ def main():
     output_list = []
     with open("rainbow.csv", "r") as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',')
-        for row in spamreader:
-            output_list.append(row[1])
-    for out in sorted(output_list):
-        print out
+        mydict = dict((rows[0], rows[1]) for rows in spamreader)
+
 
 if __name__ == "__main__":
     main()
