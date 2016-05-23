@@ -13,7 +13,7 @@ def hash_lookup(mydict):
         hash = given_hash
         passwd = ''
         result = "MpaleC"
-        for index in range(chain_size + 1):  # infinite loop
+        for index in range(chain_size + 1):
             if hash in mydict:
                 passwd = find_hash_in_chain(mydict[hash], given_hash)
                 if passwd is not None:
