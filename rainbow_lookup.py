@@ -2,12 +2,14 @@
 import csv
 import blake
 
-chain_size = 10000
+chain_size = 2500
 
 def hash_lookup(mydict):
     """Lookup Function."""
-    while True:
-        given_hash = raw_input("\nGive the motherfucking hash: ")
+    lines = [line.rstrip('\n') for line in open('hashes.txt')]
+    for line in lines:
+        given_hash = line
+        print('Checking hash: ' + given_hash)
         hash = given_hash
         passwd = ''
         result = "MpaleC"
@@ -17,7 +19,7 @@ def hash_lookup(mydict):
                 if passwd is not None:
                     result = "Success!! Found:  " + passwd
                     break
-            passwd = blake.reduce(hash)
+            passwd = blake.reduce(hash, chain_size - index)
             hash = blake.hash(passwd)
         print result
 
@@ -26,7 +28,7 @@ def find_hash_in_chain(passwd, given_hash):
         new_hash = blake.hash(passwd)
         if new_hash == given_hash:
             return passwd
-        passwd = blake.reduce(new_hash)
+        passwd = blake.reduce(new_hash, index)
     return None
 
 

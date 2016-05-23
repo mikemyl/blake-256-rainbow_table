@@ -17,12 +17,12 @@ def get_random_pass():
     return ''.join(rand_chars)
 
 
-def reduce(hash_val):
+def reduce(hash_val, column):
     """Reduce function."""
     new_pass = []
     for index in range(pass_length):
         new_pass.append(char_set[
-            int(hash_val[(index*2): (index*2+2)], 16) % 64])
+            (int(hash_val[(index*2): (index*2+2)], 16) + column) % 64])
     return ''.join(new_pass)
 
 
@@ -37,13 +37,13 @@ def create_chain(chain_length, csv_writer):
     passwd = get_random_pass()
     hashed_passwd = hash(passwd)
     for index in range(chain_length):
-        new_passwd = reduce(hashed_passwd)
+        new_passwd = reduce(hashed_passwd, index)
         hashed_passwd = hash(new_passwd)
     csv_writer.writerow([passwd, hashed_passwd])
 
 
 if __name__ == "__main__":
-    csv_file = open('rainbow.csv', 'wb')
+    csv_file = open('rainbow_2500.csv', 'wb')
     wr = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
-    for index in range(10):
-        create_chain(10, wr)
+    for index in range(15000000):
+        create_chain(2500, wr)
