@@ -45,7 +45,7 @@ def create_chain(chain_length, csv_writer):
 
 
 if __name__ == "__main__":
-    csv_file = open('rainbow_4k.csv', 'wb')
+    csv_file = open('rainbow_4k.csv', 'a')
     wr = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
-    for index in range(10000000):
+    for index in range(25000000):
         create_chain(4000, wr)
